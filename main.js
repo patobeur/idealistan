@@ -13,7 +13,7 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(200, 200, 200);
 scene.add(directionalLight);
-scene.background = new THREE.Color(0x050505);
+scene.background = new THREE.Color(0x87ceeb); // Sky blue
 
 // Planet
 const sphereRadius = 200;
@@ -66,9 +66,8 @@ cameraPitch.add(camera);
 // Position player and camera
 player.position.set(0, sphereRadius, 0);
 cameraPivot.position.set(0, sphereRadius, 0);
-cameraPitch.position.set(0, playerHeight * 0.9, 0); // Eye level
-camera.position.set(0, 0, 10);
-camera.lookAt(0, 0, 0);
+cameraPitch.position.set(0, playerHeight * 1.2, 0); // Slightly above eye level
+camera.position.set(0, 0, 15); // Distance from player
 
 // Movement state
 const keys = { z: false, s: false, q: false, d: false };
@@ -125,17 +124,19 @@ function updateMovement() {
     const angularSpeed = moveSpeed / sphereRadius;
 
     if (keys.z || keys.s) {
-        const direction = keys.z ? 1 : -1;
-        // Move forward relative to the rotator's facing
+        // Z is forward (away from camera), S is backward
+        const direction = keys.z ? -1 : 1;
+        // Forward/Backward: rotate around the player's local X axis
         const axis = new THREE.Vector3(1, 0, 0).applyQuaternion(playerRotator.quaternion);
         playerBase.rotateOnAxis(axis, direction * angularSpeed);
     }
 
     if (keys.q || keys.d) {
+        // Q is left, D is right
         const direction = keys.q ? 1 : -1;
-        // Strafe relative to the rotator's facing
+        // Strafing: rotate around the player's local Z axis
         const axis = new THREE.Vector3(0, 0, 1).applyQuaternion(playerRotator.quaternion);
-        playerBase.rotateOnAxis(axis, -direction * angularSpeed);
+        playerBase.rotateOnAxis(axis, direction * angularSpeed);
     }
 }
 
