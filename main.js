@@ -32,7 +32,7 @@ const planet = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(planet);
 
 // Add Trees
-createTrees(planet, sphereRadius, 200);
+createTrees(planet, sphereRadius, 2000);
 
 // Grid on planet
 const wireframe = new THREE.WireframeGeometry(sphereGeometry);
