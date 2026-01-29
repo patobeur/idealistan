@@ -1,5 +1,5 @@
 import * as THREE from "three";
-
+import { createTrees } from "./trees.js";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
 	75,
@@ -30,6 +30,9 @@ const sphereMaterial = new THREE.MeshStandardMaterial({
 });
 const planet = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(planet);
+
+// Add Trees
+createTrees(planet, sphereRadius, 200);
 
 // Grid on planet
 const wireframe = new THREE.WireframeGeometry(sphereGeometry);
